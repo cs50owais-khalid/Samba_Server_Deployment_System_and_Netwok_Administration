@@ -1,0 +1,41 @@
+cd /etc/sysconfig/network-scripts
+
+service network restart
+
+yum update
+
+yum update samba samba-client
+
+systemctl start smb
+
+systemctl start nmb
+
+systemctl status smb
+
+systemctl status nmb
+
+systemctl start firewalld
+
+sudo firewall-cmd --add-service=samba --permanent
+
+sudo firewall-cmd --reload
+
+adduser user1
+
+groupadd sysadmin
+
+usermod user1 -aG sysadmin
+
+smbpasswd -a user1
+
+mkdir -p /samba/fileshare
+
+vi /etc/samba/smb.conf_
+
+systemctl restart smb
+
+systemctl restart nmb
+
+systemctl restart firewalld
+
+smbclient //{ip add of first vm}/Centos_Server -U user1
